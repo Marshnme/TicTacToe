@@ -16,8 +16,33 @@ const gameBoard = (() => {
     }
 
     return{
-        displayBoard,
+        displayBoard,board,
     }
 })();
 
 gameBoard.displayBoard()
+
+const createPlayer = () => {
+    let allBoardTiles = document.querySelectorAll(".game-tile")
+    
+    let selectTile = function(e){
+        for(let i = 0; i<allBoardTiles.length; i++){
+            if(e.target === allBoardTiles[i]){
+                
+            }
+        }
+    }
+
+    allBoardTiles.forEach(tile => {
+        tile.addEventListener("mouseup",selectTile)
+    });
+    
+
+    return{
+        selectTile,
+    }
+}
+
+let playerOne = createPlayer();
+
+playerOne.selectTile()
