@@ -1,3 +1,21 @@
-/* *{
-    background-color: gray;
-} */
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+}
+
+.container > *{
+    padding:50px
+}
+
+.game-board{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+}
+
+.game-tile{
+    padding:10px;
+    border:1px solid black;
+}
