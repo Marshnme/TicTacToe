@@ -24,13 +24,30 @@ gameBoard.displayBoard()
 
 const createPlayer = () => {
     let allBoardTiles = document.querySelectorAll(".game-tile")
+    let board = gameBoard.board;
     
-    let selectTile = function(e){
+    let selectTile = function(e,tileMarker){
+        console.log(this)
+        if(!tileMarker){
+            return
+        }else{
         for(let i = 0; i<allBoardTiles.length; i++){
             if(e.target === allBoardTiles[i]){
-                
+                allBoardTiles[i].innerHTML= tileMarker;
+                board[i] = tileMarker; 
             }
         }
+    }
+}
+
+    
+
+    let placeX = (X = "X") =>{
+        
+    }
+
+    let placeO = (O="O") =>{
+       
     }
 
     allBoardTiles.forEach(tile => {
@@ -39,10 +56,9 @@ const createPlayer = () => {
     
 
     return{
-        selectTile,
+        selectTile,placeX,placeO,
     }
 }
 
 let playerOne = createPlayer();
-
-playerOne.selectTile()
+playerOne.placeO();
