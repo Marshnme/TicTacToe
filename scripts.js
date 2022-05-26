@@ -26,38 +26,38 @@ const createPlayer = () => {
     let allBoardTiles = document.querySelectorAll(".game-tile")
     let board = gameBoard.board;
     
-    let selectTile = function(e,tileMarker){
-        console.log("this",this)
-        console.log("marker",tileMarker)
-        if(!tileMarker){
-            return
-        }else{
+
+    // if place x put this event on all elements for 1 turn same for place o
+
+    let placeX = (e) =>{
+        allBoardTiles.forEach(tile => {
+            tile.removeEventListener("mouseup",placeO)
+            tile.addEventListener("mouseup",placeX)
+        });
         for(let i = 0; i<allBoardTiles.length; i++){
-            if(this === allBoardTiles[i]){
-                allBoardTiles[i].innerHTML= tileMarker;
-                board[i] = tileMarker; 
+            if(e.target === allBoardTiles[i]){
+                allBoardTiles[i].innerHTML= "X";
+                board[i] = "X"; 
                 }
             }
-        }
     }
 
-    
-
-    let placeX = (X = "X") =>{
-        selectTile(X)
+    let placeO = (e) =>{
+        allBoardTiles.forEach(tile => {
+            tile.removeEventListener("mouseup",placeX)
+            tile.addEventListener("mouseup",placeO)
+        });
+        for(let i = 0; i<allBoardTiles.length; i++){
+            if(e.target === allBoardTiles[i]){
+                allBoardTiles[i].innerHTML= "O";
+                board[i] = "O";
+                }
+            }   
     }
-
-    let placeO = (O = "O") =>{
-        selectTile(O)
-    }
-
-    allBoardTiles.forEach(tile => {
-        tile.addEventListener("mouseup",selectTile)
-    });
     
 
     return{
-        selectTile,placeX,placeO,
+        placeX,placeO,
     }
 }
 
