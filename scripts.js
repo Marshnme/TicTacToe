@@ -27,6 +27,27 @@ const createPlayer = (name) => {
     let board = gameBoard.board;
     
 
+
+    const checkWin = () => {
+        if(board[0] && allBoardTiles[0].innerHTML === "X" && board[1] && allBoardTiles[1].innerHTML === "X" && board[2] && allBoardTiles[2].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[3] && allBoardTiles[3].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[5] && allBoardTiles[5].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[6] && allBoardTiles[6].innerHTML === "X" && board[7] && allBoardTiles[7].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[0] && allBoardTiles[0].innerHTML === "X" && board[3] && allBoardTiles[3].innerHTML === "X" && board[6] && allBoardTiles[6].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[1] && allBoardTiles[1].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[7] && allBoardTiles[7].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[2] && allBoardTiles[2].innerHTML === "X" && board[5] && allBoardTiles[5].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[0] && allBoardTiles[0].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
+            console.log("player1 wins")
+        }else if(board[2] && allBoardTiles[2].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[6] && allBoardTiles[6].innerHTML === "X"){
+            console.log("player1 wins")
+        }
+    }
+
     // if place x put this event on all elements for 1 turn same for place o
 
     let placeX = (e) =>{
@@ -53,6 +74,7 @@ const createPlayer = (name) => {
                 tile.addEventListener("mouseup",placeO)
             });
         }
+        checkWin()
         
     }
 
@@ -79,6 +101,7 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
         }  
+        checkWin()
     }
     
 
@@ -104,9 +127,11 @@ const createPlayer = (name) => {
 const gameFlow = (() => {
     // render board
     const {displayBoard} = gameBoard;
-
+    
     displayBoard()
     let board = gameBoard.board;
+    let allBoardTiles = document.querySelectorAll(".game-tile")
+    console.log(allBoardTiles)
     // create two players
 
     let playerOne = createPlayer("playerOne");
@@ -115,17 +140,15 @@ const gameFlow = (() => {
     let playerTwo = createPlayer("playerTwo");
     // playerTwo.placeO();
 
-    // compare === arr
-    const equals = (a, b) =>
-    a.length === b.length &&
-    a.every((v, i) => v === b[i]);
-    // create turn
-    if(equals(board,["","","","","","","","",""])){
-        playerOne.placeX();
-        
-    }else{
-        console.log("bye")
-    }
 
+
+    // compare === arr
+        const equals = (a, b) =>
+        a.length === b.length &&
+        a.every((v, i) => v === b[i]);
+        // create start
+        if(equals(board,["","","","","","","","",""])){
+            playerOne.placeX();
+        }
 
 })()
