@@ -27,27 +27,28 @@ const createPlayer = () => {
     let board = gameBoard.board;
     
     let selectTile = function(e,tileMarker){
-        console.log(this)
+        console.log("this",this)
+        console.log("marker",tileMarker)
         if(!tileMarker){
             return
         }else{
         for(let i = 0; i<allBoardTiles.length; i++){
-            if(e.target === allBoardTiles[i]){
+            if(this === allBoardTiles[i]){
                 allBoardTiles[i].innerHTML= tileMarker;
                 board[i] = tileMarker; 
+                }
             }
         }
     }
-}
 
     
 
     let placeX = (X = "X") =>{
-        
+        selectTile(X)
     }
 
-    let placeO = (O="O") =>{
-       
+    let placeO = (O = "O") =>{
+        selectTile(O)
     }
 
     allBoardTiles.forEach(tile => {
