@@ -21,10 +21,32 @@ const gameBoard = (() => {
 })();
 
 
+const displayWinScreen = () => {
+
+    const playerWin = (winningText) =>{
+        if(!winningText){
+            return
+        }else if(winningText === "Player One Wins!"){
+            let pageContainer = document.querySelector(".container")
+            pageContainer.classList.add("blur")
+        }else{
+            let pageContainer = document.querySelector(".container")
+            pageContainer.classList.add("blur")
+        }
+    }
+
+    return{
+        playerWin,
+    }
+    
+}
+
+
 const createPlayer = (name) => {
 
     let allBoardTiles = document.querySelectorAll(".game-tile")
     let board = gameBoard.board;
+    let {playerWin} = displayWinScreen()
     
 
 
@@ -65,7 +87,6 @@ const createPlayer = (name) => {
         }else if(board[2] && allBoardTiles[2].innerHTML === "O" && board[4] && allBoardTiles[4].innerHTML === "O" && board[6] && allBoardTiles[6].innerHTML === "O"){
             return true
         }else{
-            console.log("tie")
             return false
         }
     }
@@ -97,11 +118,12 @@ const createPlayer = (name) => {
             });
         }
         if(checkWin() === true){
-            console.log("Player One Wins")
+            
             allBoardTiles.forEach(tile => {
                 tile.removeEventListener("mouseup",placeX)
                 tile.removeEventListener("mouseup",placeO)
             });
+            return playerWin("Player One Wins!")
         }
         
     }
@@ -130,17 +152,18 @@ const createPlayer = (name) => {
             });
         }  
         if(checkWin() === true){
-            console.log("Player Two Wins")
+            
             allBoardTiles.forEach(tile => {
                 tile.removeEventListener("mouseup",placeX)
                 tile.removeEventListener("mouseup",placeO)
             });
+            return playerWin("Player Two Wins!")
         }
     }
     
 
     return{
-        placeX,placeO,name,
+        placeX,checkWin,
     }
 }
 
@@ -153,8 +176,7 @@ const createPlayer = (name) => {
 // create start game
     // player one goes first with X
     // alternate x's and o's event listerners to stimulate turns
-    // if 3 x's in a row or diag player one wins
-    // if 3 o's in a row or diag player two wins
+    // win conditions moved to createPlayer factory
     // congratulations player _
 
 
@@ -174,7 +196,11 @@ const gameFlow = (() => {
     let playerTwo = createPlayer("playerTwo");
     // playerTwo.placeO();
 
+    const win = () => {
+            if(checkWin() === true){
 
+            }
+        }
 
     // compare === arr
         const equals = (a, b) =>
@@ -185,4 +211,11 @@ const gameFlow = (() => {
             playerOne.placeX();
         }
 
+
+    // win screen function
+    
+
+    
+
+    return {}
 })()
