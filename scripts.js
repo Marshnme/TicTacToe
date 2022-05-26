@@ -29,22 +29,44 @@ const createPlayer = (name) => {
 
 
     const checkWin = () => {
+        // ALL OF X'S WINNING CONDITIONS
         if(board[0] && allBoardTiles[0].innerHTML === "X" && board[1] && allBoardTiles[1].innerHTML === "X" && board[2] && allBoardTiles[2].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[3] && allBoardTiles[3].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[5] && allBoardTiles[5].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[6] && allBoardTiles[6].innerHTML === "X" && board[7] && allBoardTiles[7].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[0] && allBoardTiles[0].innerHTML === "X" && board[3] && allBoardTiles[3].innerHTML === "X" && board[6] && allBoardTiles[6].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[1] && allBoardTiles[1].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[7] && allBoardTiles[7].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[2] && allBoardTiles[2].innerHTML === "X" && board[5] && allBoardTiles[5].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[0] && allBoardTiles[0].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[8] && allBoardTiles[8].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
         }else if(board[2] && allBoardTiles[2].innerHTML === "X" && board[4] && allBoardTiles[4].innerHTML === "X" && board[6] && allBoardTiles[6].innerHTML === "X"){
-            console.log("player1 wins")
+            return true
+        }
+        // ALL OF O'S WINNING CONDITIONS
+        else if(board[0] && allBoardTiles[0].innerHTML === "O" && board[1] && allBoardTiles[1].innerHTML === "O" && board[2] && allBoardTiles[2].innerHTML === "O"){
+            return true
+        }else if(board[3] && allBoardTiles[3].innerHTML === "O" && board[4] && allBoardTiles[4].innerHTML === "O" && board[5] && allBoardTiles[5].innerHTML === "O"){
+            return true
+        }else if(board[6] && allBoardTiles[6].innerHTML === "O" && board[7] && allBoardTiles[7].innerHTML === "O" && board[8] && allBoardTiles[8].innerHTML === "O"){
+            return true
+        }else if(board[0] && allBoardTiles[0].innerHTML === "O" && board[3] && allBoardTiles[3].innerHTML === "O" && board[6] && allBoardTiles[6].innerHTML === "O"){
+            return true
+        }else if(board[1] && allBoardTiles[1].innerHTML === "O" && board[4] && allBoardTiles[4].innerHTML === "O" && board[7] && allBoardTiles[7].innerHTML === "O"){
+            return true
+        }else if(board[2] && allBoardTiles[2].innerHTML === "O" && board[5] && allBoardTiles[5].innerHTML === "O" && board[8] && allBoardTiles[8].innerHTML === "O"){
+            return true
+        }else if(board[0] && allBoardTiles[0].innerHTML === "O" && board[4] && allBoardTiles[4].innerHTML === "O" && board[8] && allBoardTiles[8].innerHTML === "O"){
+            return true
+        }else if(board[2] && allBoardTiles[2].innerHTML === "O" && board[4] && allBoardTiles[4].innerHTML === "O" && board[6] && allBoardTiles[6].innerHTML === "O"){
+            return true
+        }else{
+            console.log("tie")
+            return false
         }
     }
 
@@ -74,7 +96,13 @@ const createPlayer = (name) => {
                 tile.addEventListener("mouseup",placeO)
             });
         }
-        checkWin()
+        if(checkWin() === true){
+            console.log("Player One Wins")
+            allBoardTiles.forEach(tile => {
+                tile.removeEventListener("mouseup",placeX)
+                tile.removeEventListener("mouseup",placeO)
+            });
+        }
         
     }
 
@@ -101,7 +129,13 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
         }  
-        checkWin()
+        if(checkWin() === true){
+            console.log("Player Two Wins")
+            allBoardTiles.forEach(tile => {
+                tile.removeEventListener("mouseup",placeX)
+                tile.removeEventListener("mouseup",placeO)
+            });
+        }
     }
     
 
@@ -146,7 +180,7 @@ const gameFlow = (() => {
         const equals = (a, b) =>
         a.length === b.length &&
         a.every((v, i) => v === b[i]);
-        // create start
+        // create start game
         if(equals(board,["","","","","","","","",""])){
             playerOne.placeX();
         }
