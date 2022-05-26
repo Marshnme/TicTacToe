@@ -29,12 +29,15 @@ const displayWinScreen = () => {
         }else if(winningText === "Player One Wins!"){
             let pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
-        }else{
+        }else if (winningText === "Player Two Wins!"){
             let pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
         }
     }
 
+    // grab restart button and add event listener to restart button to restart game.
+        // reset board and all game tiles to ""
+        // remove blur 
     return{
         playerWin,
     }
