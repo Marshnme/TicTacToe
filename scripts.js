@@ -40,7 +40,7 @@ const createPlayer = (name) => {
         }else{
             for(let i = 0; i<allBoardTiles.length; i++){
                 if(e.target === allBoardTiles[i]){
-                    if(e.target.value === "X" || e.target.value === "O"){
+                    if(e.target.innerHTML === "X" || e.target.innerHTML === "O"){
                         return
                     }else{
                         allBoardTiles[i].innerHTML= "X";
@@ -48,6 +48,10 @@ const createPlayer = (name) => {
                     }
                 }
             }
+            allBoardTiles.forEach(tile => {
+                tile.removeEventListener("mouseup",placeX)
+                tile.addEventListener("mouseup",placeO)
+            });
         }
         
     }
@@ -62,7 +66,7 @@ const createPlayer = (name) => {
         }else{
             for(let i = 0; i<allBoardTiles.length; i++){
                 if(e.target === allBoardTiles[i]){
-                    if(e.target.value === "X" || e.target.value === "O"){
+                    if(e.target.innerHTML === "X" || e.target.innerHTML === "O"){
                         return
                     }else{
                     allBoardTiles[i].innerHTML= "O";
@@ -70,6 +74,10 @@ const createPlayer = (name) => {
                     }
                 }
             }   
+            allBoardTiles.forEach(tile => {
+                tile.addEventListener("mouseup",placeX)
+                tile.removeEventListener("mouseup",placeO)
+            });
         }  
     }
     
@@ -94,8 +102,6 @@ const createPlayer = (name) => {
 
 
 const gameFlow = (() => {
-    
-    
     // render board
     const {displayBoard} = gameBoard;
 
@@ -104,20 +110,22 @@ const gameFlow = (() => {
     // create two players
 
     let playerOne = createPlayer("playerOne");
-    // playerOne.placeO();
+    // playerOne.placeX();
 
     let playerTwo = createPlayer("playerTwo");
-    // playerTwo.placeX();
+    // playerTwo.placeO();
 
+    // compare === arr
+    const equals = (a, b) =>
+    a.length === b.length &&
+    a.every((v, i) => v === b[i]);
     // create turn
-    console.log(board)
-    if(board){
+    if(equals(board,["","","","","","","","",""])){
         playerOne.placeX();
+        
     }else{
         console.log("bye")
     }
-
-    console.log(board)
 
 
 })()
