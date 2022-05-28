@@ -5,7 +5,7 @@ const gameBoard = (() => {
     let gameTile = document.createElement("div");
     let endGameScreen = document.querySelector(".end-game-screen");
     let turnCounter = document.querySelector(".turn-counter")
-
+    
     
 
     let board = ["","","",
@@ -47,7 +47,7 @@ const gameBoard = (() => {
         }
         endGameScreen.replaceChildren();
         pageContainer.classList.remove("blur");
-        // startGame()
+        
     }
 
     return{
@@ -61,12 +61,11 @@ const displayScreen = () => {
 
     let endGameScreen = document.querySelector(".end-game-screen");
     let endGameText = document.createElement("h2");
-    let restartButton = document.createElement("button");
+    let restartButton = document.querySelector(".restart-button");
     let pageContainer = document.querySelector(".container")
-    restartButton.classList.add("restart-button")
-    restartButton.textContent = "Restart?";
-    restartButton.addEventListener("click",restartBoard)
-    
+
+    // restartButton.addEventListener("click",restartBoard)
+    console.log(restartButton)
 
     const playerWin = (winningText) =>{
         if(!winningText){
@@ -74,16 +73,17 @@ const displayScreen = () => {
         }else if(winningText === "Player One Wins!"){
             endGameText.textContent = winningText;
             endGameScreen.appendChild(endGameText);
-            endGameScreen.appendChild(restartButton);
+            // endGameScreen.classList.remove()
             pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
-            
+            return "Player One Wins!"
         }else if (winningText === "Player Two Wins!"){
             endGameText.textContent = winningText;
             endGameScreen.appendChild(endGameText)
-            endGameScreen.appendChild(restartButton);
+            
             pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
+            return "Player Two Wins!"
         }
     }
 
@@ -93,13 +93,14 @@ const displayScreen = () => {
         endGameScreen.appendChild(restartButton);
         pageContainer = document.querySelector(".container")
         pageContainer.classList.add("blur")
+        return "Tie Game!"
     }
 
 
 
     
     return{
-        playerWin,tie,
+        playerWin,tie,restartButton,
     }
     
 }
@@ -265,8 +266,11 @@ const createPlayer = (name) => {
 
 const gameFlow = (() => {
     // render board
-    const {displayBoard} = gameBoard;
-    
+    const {displayBoard,restartBoard} = gameBoard;
+    // let {restartButton} = displayScreen()
+    let restartButton = document.querySelector(".restart-button");
+    console.log(restartButton)
+    console.log(restartBoard)
     displayBoard()
     let board = gameBoard.board;
     let allBoardTiles = document.querySelectorAll(".game-tile")
@@ -284,14 +288,27 @@ const gameFlow = (() => {
         a.length === b.length &&
         a.every((v, i) => v === b[i]);
         // create start game
+        restartButton.addEventListener("click",restartGame)
+        console.log(board)
         if(equals(board,["","","","","","","","",""])){
-            console.log("start")
             playerOne.placeX();
+        }else{
+            console.log("fuckin broke")
         }
+    }
+
+    let restartGame = () => {
+        restartBoard();
+        // board = ["","","",
+        //          "","","",
+        //          "","",""];
+        //          turn= 0;
+        startGame();
     }
     
     startGame()
-        
+    
+    
 
 
     // win screen function

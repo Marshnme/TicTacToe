@@ -1,5 +1,5 @@
 .restart-button{
-    
+
 }
 
 .container{
@@ -26,4 +26,8 @@
 .game-tile{
     padding:30px;
     border:1px solid black;
+}
+
+.end-game-screen{
+    /* display: none; */
 }
