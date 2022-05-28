@@ -29,5 +29,11 @@
 }
 
 .end-game-screen{
-    /* display: none; */
+    position: absolute;
+    z-index: 1;
+}
+
+.end-game-screen-hidden{
+    position: absolute;
+    visibility: hidden;
 }

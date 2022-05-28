@@ -1,4 +1,7 @@
-
+let board = ["","","",
+                 "","","",
+                 "","",""];
+let turn = 0;
 // This is a module 
 const gameBoard = (() => {
     const gameBoardContainer = document.querySelector(".game-board")
@@ -6,12 +9,9 @@ const gameBoard = (() => {
     let endGameScreen = document.querySelector(".end-game-screen");
     let turnCounter = document.querySelector(".turn-counter")
     
-    
+   
 
-    let board = ["","","",
-                 "","","",
-                 "","",""];
-    let turn = 0;
+    
     let displayBoard = function(){
         for(let i = 0; i<board.length; i++){
             gameTile = document.createElement("div")
@@ -21,37 +21,26 @@ const gameBoard = (() => {
         }
     }
 
-    // let playerOne = createPlayer("playerOne");
-
-    // const startGame = () => {
-    //     const equals = (a, b) =>
-    //     a.length === b.length &&
-    //     a.every((v, i) => v === b[i]);
-    //     // create start game
-    //     if(equals(board,["","","","","","","","",""])){
-    //         console.log("start")
-    //         playerOne.placeX();
-    //     }
-    // }
-
     let restartBoard = () =>{
         let pageContainer = document.querySelector(".container");
         let allBoardTiles = document.querySelectorAll(".game-tile");
         board = ["","","",
                  "","","",
-                 "","",""];
+                 "","",""];     
         turn = 0;
+        console.log(board)
+        console.log(turn)
         turnCounter.innerHTML = `Turn: ${turn}`;
         for(let i = 0; i<board.length; i++){
             allBoardTiles[i].innerHTML = board[i];
         }
-        endGameScreen.replaceChildren();
+        endGameScreen.classList.add("end-game-screen-hidden")
         pageContainer.classList.remove("blur");
         
     }
 
     return{
-        displayBoard,board,turn,restartBoard,
+        displayBoard,restartBoard,
     }
 })();
 
@@ -65,22 +54,21 @@ const displayScreen = () => {
     let pageContainer = document.querySelector(".container")
 
     // restartButton.addEventListener("click",restartBoard)
-    console.log(restartButton)
 
     const playerWin = (winningText) =>{
         if(!winningText){
             return
         }else if(winningText === "Player One Wins!"){
             endGameText.textContent = winningText;
-            endGameScreen.appendChild(endGameText);
-            // endGameScreen.classList.remove()
+            endGameScreen.prepend(endGameText);
+            endGameScreen.classList.remove("end-game-screen-hidden")
             pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
             return "Player One Wins!"
         }else if (winningText === "Player Two Wins!"){
             endGameText.textContent = winningText;
-            endGameScreen.appendChild(endGameText)
-            
+            endGameScreen.prepend(endGameText)
+            endGameScreen.classList.remove("end-game-screen-hidden")
             pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
             return "Player Two Wins!"
@@ -89,8 +77,8 @@ const displayScreen = () => {
 
     const tie = (tieMessage) =>{
         endGameText.textContent = tieMessage;
-        endGameScreen.appendChild(endGameText)
-        endGameScreen.appendChild(restartButton);
+        endGameScreen.prepend(endGameText)
+        endGameScreen.classList.remove("end-game-screen-hidden")
         pageContainer = document.querySelector(".container")
         pageContainer.classList.add("blur")
         return "Tie Game!"
@@ -110,8 +98,8 @@ const createPlayer = (name) => {
 
     let allBoardTiles = document.querySelectorAll(".game-tile")
     let turnCounter = document.querySelector(".turn-counter")
-    let board = gameBoard.board;
-    let turn = gameBoard.turn;
+    // let board = gameBoard.board;
+    // let turn = gameBoard.turn;
 
 
     let {playerWin,tie} = displayScreen()
@@ -185,6 +173,7 @@ const createPlayer = (name) => {
                 tile.addEventListener("mouseup",placeO)
             });
         }
+        console.log(turn)
         turn += 1;
         turnCounter.innerHTML = `Turn: ${turn}`;
         if(checkWin() === true){
@@ -227,6 +216,7 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
         }  
+        console.log(turn)
         turn += 1;
         turnCounter.innerHTML = `Turn: ${turn}`;
         if(checkWin() === true){
@@ -269,10 +259,9 @@ const gameFlow = (() => {
     const {displayBoard,restartBoard} = gameBoard;
     // let {restartButton} = displayScreen()
     let restartButton = document.querySelector(".restart-button");
-    console.log(restartButton)
-    console.log(restartBoard)
     displayBoard()
-    let board = gameBoard.board;
+    // let board = gameBoard.board;
+    // let turn = gameBoard.turn;
     let allBoardTiles = document.querySelectorAll(".game-tile")
     // create two players
 
@@ -284,12 +273,14 @@ const gameFlow = (() => {
 
     // compare === arr
     const startGame = () => {
+        // restartBoard()
         const equals = (a, b) =>
         a.length === b.length &&
         a.every((v, i) => v === b[i]);
         // create start game
         restartButton.addEventListener("click",restartGame)
         console.log(board)
+        console.log(turn)
         if(equals(board,["","","","","","","","",""])){
             playerOne.placeX();
         }else{
@@ -298,12 +289,16 @@ const gameFlow = (() => {
     }
 
     let restartGame = () => {
+        // figure out why restart board isnt working 
         restartBoard();
+    
         // board = ["","","",
         //          "","","",
         //          "","",""];
         //          turn= 0;
         startGame();
+        console.log(turn)
+        console.log(board)
     }
     
     startGame()
