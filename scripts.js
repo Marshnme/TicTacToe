@@ -5,7 +5,7 @@ const gameBoard = (() => {
     let board = ["","","",
                  "","","",
                  "","",""];
-
+    let turn = 0;
     let displayBoard = function(){
         for(let i = 0; i<board.length; i++){
             let gameTile = document.createElement("div")
@@ -16,30 +16,45 @@ const gameBoard = (() => {
     }
 
     return{
-        displayBoard,board,
+        displayBoard,board,turn
     }
 })();
 
 
-const displayWinScreen = () => {
+const displayScreen = () => {
+    let endGameScreen = document.querySelector(".end-game-screen");
+    let endGameText = document.createElement("h2");
+
 
     const playerWin = (winningText) =>{
         if(!winningText){
             return
         }else if(winningText === "Player One Wins!"){
+            endGameText.textContent = winningText;
+            endGameScreen.appendChild(endGameText);
             let pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
+            
         }else if (winningText === "Player Two Wins!"){
+            endGameText.textContent = winningText;
+            endGameScreen.appendChild(endGameText)
             let pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
         }
+    }
+
+    const tie = (tieMessage) =>{
+        endGameText.textContent = tieMessage;
+        endGameScreen.appendChild(endGameText)
+        let pageContainer = document.querySelector(".container")
+        pageContainer.classList.add("blur")
     }
 
     // grab restart button and add event listener to restart button to restart game.
         // reset board and all game tiles to ""
         // remove blur 
     return{
-        playerWin,
+        playerWin,tie,
     }
     
 }
@@ -48,8 +63,12 @@ const displayWinScreen = () => {
 const createPlayer = (name) => {
 
     let allBoardTiles = document.querySelectorAll(".game-tile")
+    let turnCounter = document.querySelector(".turn-counter")
     let board = gameBoard.board;
-    let {playerWin} = displayWinScreen()
+    let turn = gameBoard.turn;
+
+
+    let {playerWin,tie} = displayScreen()
     
 
 
@@ -120,6 +139,8 @@ const createPlayer = (name) => {
                 tile.addEventListener("mouseup",placeO)
             });
         }
+        turn += 1;
+        turnCounter.innerHTML = `Turn: ${turn}`;
         if(checkWin() === true){
             
             allBoardTiles.forEach(tile => {
@@ -127,6 +148,12 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
             return playerWin("Player One Wins!")
+        }else if(turn === 9 && checkWin() === false){
+            allBoardTiles.forEach(tile => {
+                tile.removeEventListener("mouseup",placeX)
+                tile.removeEventListener("mouseup",placeO)
+            });
+            return tie("Tie Game!")
         }
         
     }
@@ -154,6 +181,8 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
         }  
+        turn += 1;
+        turnCounter.innerHTML = `Turn: ${turn}`;
         if(checkWin() === true){
             
             allBoardTiles.forEach(tile => {
@@ -161,6 +190,12 @@ const createPlayer = (name) => {
                 tile.removeEventListener("mouseup",placeO)
             });
             return playerWin("Player Two Wins!")
+        }else if(turn === 9 && checkWin() === false){
+            allBoardTiles.forEach(tile => {
+                tile.removeEventListener("mouseup",placeX)
+                tile.removeEventListener("mouseup",placeO)
+            });
+            return tie("Tie Game!")
         }
     }
     
@@ -190,7 +225,6 @@ const gameFlow = (() => {
     displayBoard()
     let board = gameBoard.board;
     let allBoardTiles = document.querySelectorAll(".game-tile")
-    console.log(allBoardTiles)
     // create two players
 
     let playerOne = createPlayer("playerOne");
@@ -198,12 +232,6 @@ const gameFlow = (() => {
 
     let playerTwo = createPlayer("playerTwo");
     // playerTwo.placeO();
-
-    const win = () => {
-            if(checkWin() === true){
-
-            }
-        }
 
     // compare === arr
         const equals = (a, b) =>
@@ -216,8 +244,6 @@ const gameFlow = (() => {
 
 
     // win screen function
-    
-
     
 
     return {}
