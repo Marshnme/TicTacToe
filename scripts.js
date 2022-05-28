@@ -2,29 +2,71 @@
 // This is a module 
 const gameBoard = (() => {
     const gameBoardContainer = document.querySelector(".game-board")
+    let gameTile = document.createElement("div");
+    let endGameScreen = document.querySelector(".end-game-screen");
+    let turnCounter = document.querySelector(".turn-counter")
+
+    
+
     let board = ["","","",
                  "","","",
                  "","",""];
     let turn = 0;
     let displayBoard = function(){
         for(let i = 0; i<board.length; i++){
-            let gameTile = document.createElement("div")
+            gameTile = document.createElement("div")
             gameTile.textContent = board[i];
             gameTile.classList.add("game-tile",`game-tile-${i}`)
             gameBoardContainer.appendChild(gameTile)
         }
     }
 
+    // let playerOne = createPlayer("playerOne");
+
+    // const startGame = () => {
+    //     const equals = (a, b) =>
+    //     a.length === b.length &&
+    //     a.every((v, i) => v === b[i]);
+    //     // create start game
+    //     if(equals(board,["","","","","","","","",""])){
+    //         console.log("start")
+    //         playerOne.placeX();
+    //     }
+    // }
+
+    let restartBoard = () =>{
+        let pageContainer = document.querySelector(".container");
+        let allBoardTiles = document.querySelectorAll(".game-tile");
+        board = ["","","",
+                 "","","",
+                 "","",""];
+        turn = 0;
+        turnCounter.innerHTML = `Turn: ${turn}`;
+        for(let i = 0; i<board.length; i++){
+            allBoardTiles[i].innerHTML = board[i];
+        }
+        endGameScreen.replaceChildren();
+        pageContainer.classList.remove("blur");
+        // startGame()
+    }
+
     return{
-        displayBoard,board,turn
+        displayBoard,board,turn,restartBoard,
     }
 })();
 
 
 const displayScreen = () => {
+    let {restartBoard} = gameBoard
+
     let endGameScreen = document.querySelector(".end-game-screen");
     let endGameText = document.createElement("h2");
-
+    let restartButton = document.createElement("button");
+    let pageContainer = document.querySelector(".container")
+    restartButton.classList.add("restart-button")
+    restartButton.textContent = "Restart?";
+    restartButton.addEventListener("click",restartBoard)
+    
 
     const playerWin = (winningText) =>{
         if(!winningText){
@@ -32,13 +74,15 @@ const displayScreen = () => {
         }else if(winningText === "Player One Wins!"){
             endGameText.textContent = winningText;
             endGameScreen.appendChild(endGameText);
-            let pageContainer = document.querySelector(".container")
+            endGameScreen.appendChild(restartButton);
+            pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
             
         }else if (winningText === "Player Two Wins!"){
             endGameText.textContent = winningText;
             endGameScreen.appendChild(endGameText)
-            let pageContainer = document.querySelector(".container")
+            endGameScreen.appendChild(restartButton);
+            pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
         }
     }
@@ -46,13 +90,14 @@ const displayScreen = () => {
     const tie = (tieMessage) =>{
         endGameText.textContent = tieMessage;
         endGameScreen.appendChild(endGameText)
-        let pageContainer = document.querySelector(".container")
+        endGameScreen.appendChild(restartButton);
+        pageContainer = document.querySelector(".container")
         pageContainer.classList.add("blur")
     }
 
-    // grab restart button and add event listener to restart button to restart game.
-        // reset board and all game tiles to ""
-        // remove blur 
+
+
+    
     return{
         playerWin,tie,
     }
@@ -234,17 +279,23 @@ const gameFlow = (() => {
     // playerTwo.placeO();
 
     // compare === arr
+    const startGame = () => {
         const equals = (a, b) =>
         a.length === b.length &&
         a.every((v, i) => v === b[i]);
         // create start game
         if(equals(board,["","","","","","","","",""])){
+            console.log("start")
             playerOne.placeX();
         }
+    }
+    
+    startGame()
+        
 
 
     // win screen function
     
 
     return {}
-})()
+})();
