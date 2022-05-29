@@ -151,8 +151,8 @@ const createPlayer = (name) => {
 
     let placeX = (e) =>{
         allBoardTiles.forEach(tile => {
-            tile.removeEventListener("mouseup",placeO)
-            tile.addEventListener("mouseup",placeX)
+            tile.removeEventListener("click",placeO)
+            tile.addEventListener("click",placeX)
         });
 
         if(!e){
@@ -169,8 +169,8 @@ const createPlayer = (name) => {
                 }
             }
             allBoardTiles.forEach(tile => {
-                tile.removeEventListener("mouseup",placeX)
-                tile.addEventListener("mouseup",placeO)
+                tile.removeEventListener("click",placeX)
+                tile.addEventListener("click",placeO)
             });
         }
         console.log(turn)
@@ -179,14 +179,14 @@ const createPlayer = (name) => {
         if(checkWin() === true){
             
             allBoardTiles.forEach(tile => {
-                tile.removeEventListener("mouseup",placeX)
-                tile.removeEventListener("mouseup",placeO)
+                tile.removeEventListener("click",placeX)
+                tile.removeEventListener("click",placeO)
             });
             return playerWin("Player One Wins!")
         }else if(turn === 9 && checkWin() === false){
             allBoardTiles.forEach(tile => {
-                tile.removeEventListener("mouseup",placeX)
-                tile.removeEventListener("mouseup",placeO)
+                tile.removeEventListener("click",placeX)
+                tile.removeEventListener("click",placeO)
             });
             return tie("Tie Game!")
         }
@@ -195,8 +195,8 @@ const createPlayer = (name) => {
 
     let placeO = (e) =>{
         allBoardTiles.forEach(tile => {
-            tile.removeEventListener("mouseup",placeX)
-            tile.addEventListener("mouseup",placeO)
+            tile.removeEventListener("click",placeX)
+            tile.addEventListener("click",placeO)
         });
         if(!e){
             return
@@ -212,8 +212,8 @@ const createPlayer = (name) => {
                 }
             }   
             allBoardTiles.forEach(tile => {
-                tile.addEventListener("mouseup",placeX)
-                tile.removeEventListener("mouseup",placeO)
+                tile.addEventListener("click",placeX)
+                tile.removeEventListener("click",placeO)
             });
         }  
         console.log(turn)
@@ -222,14 +222,14 @@ const createPlayer = (name) => {
         if(checkWin() === true){
             
             allBoardTiles.forEach(tile => {
-                tile.removeEventListener("mouseup",placeX)
-                tile.removeEventListener("mouseup",placeO)
+                tile.removeEventListener("click",placeX)
+                tile.removeEventListener("click",placeO)
             });
             return playerWin("Player Two Wins!")
         }else if(turn === 9 && checkWin() === false){
             allBoardTiles.forEach(tile => {
-                tile.removeEventListener("mouseup",placeX)
-                tile.removeEventListener("mouseup",placeO)
+                tile.removeEventListener("click",placeX)
+                tile.removeEventListener("click",placeO)
             });
             return tie("Tie Game!")
         }
