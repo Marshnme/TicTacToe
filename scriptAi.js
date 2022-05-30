@@ -3,7 +3,7 @@ let board = ["","","",
                  "","",""];
 let turn = 0;
 
-let playerOneName = localStorage.getItem("OneName");
+let playerOneName = localStorage.getItem("nameOne");
 // This is a module 
 const gameBoard = (() => {
     const gameBoardContainer = document.querySelector(".game-board")
@@ -61,7 +61,7 @@ const displayScreen = () => {
         if(!winningText){
             return
         }else if(winningText === "Player One Wins!"){
-            endGameText.textContent = `${playerOneName} Wins!!` || winningText;
+            endGameText.textContent = playerOneName ? `${playerOneName} Wins!!` : winningText;
             endGameScreen.prepend(endGameText);
             endGameScreen.classList.remove("end-game-screen-hidden")
             pageContainer = document.querySelector(".container")

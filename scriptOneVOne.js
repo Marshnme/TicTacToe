@@ -2,6 +2,8 @@ let board = ["","","",
                  "","","",
                  "","",""];
 let turn = 0;
+let playerOneName = localStorage.getItem("nameOne");
+let playerTwoName = localStorage.getItem("nameTwo");
 // This is a module 
 const gameBoard = (() => {
     const gameBoardContainer = document.querySelector(".game-board")
@@ -59,14 +61,14 @@ const displayScreen = () => {
         if(!winningText){
             return
         }else if(winningText === "Player One Wins!"){
-            endGameText.textContent = winningText;
+            endGameText.textContent = playerOneName ? `${playerOneName} Wins!!` : winningText;
             endGameScreen.prepend(endGameText);
             endGameScreen.classList.remove("end-game-screen-hidden")
             pageContainer = document.querySelector(".container")
             pageContainer.classList.add("blur")
             return "Player One Wins!"
         }else if (winningText === "Player Two Wins!"){
-            endGameText.textContent = winningText;
+            endGameText.textContent = playerTwoName ? `${playerTwoName} Wins!!` : winningText;
             endGameScreen.prepend(endGameText)
             endGameScreen.classList.remove("end-game-screen-hidden")
             pageContainer = document.querySelector(".container")
