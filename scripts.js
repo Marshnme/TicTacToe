@@ -1,10 +1,11 @@
-let x = document.querySelector(".nameOne")
-
-console.log(x.value)
+let playerOneName = document.querySelector(".nameOne")
+let playerTwoName = document.querySelector(".nameTwo")
 
 function saveTheName() {
-    var getInput = x.value;
-    localStorage.setItem("OneName",getInput);
+    console.log(this)
+    let getInput = this.value;
+    localStorage.setItem(`${this.id}`,getInput);
  }
 
- x.addEventListener("keyup",saveTheName);
+ playerOneName.addEventListener("keyup",saveTheName);
+ playerTwoName.addEventListener("keyup",saveTheName);
